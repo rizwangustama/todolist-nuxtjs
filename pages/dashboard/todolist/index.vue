@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import {DeleteOutlined, EditOutlined, EyeOutlined, PlusOutlined} from "@ant-design/icons-vue";
-import {reactive} from "vue";
+import {reactive, onMounted} from "vue";
+import apiService from "~/services/apiService";
 
 definePageMeta({
   layout: 'dashboard',
 })
+
+const { getListTodo } = apiService();
 
 const formTodoList = reactive<any>({
   subject: '',
@@ -77,6 +80,18 @@ const resetValue = () => {
 const handleShowModal = () => {
   isModal.value = !isModal.value;
 }
+
+const fetchTodoList = async  () => {
+  try {
+    await getListTodo(); // assuming getListTodo is an async function that fetches the todo list
+  } catch (error) {
+    console.error('Error fetching todo list:', error);
+  }
+}
+
+onMounted(async () => {
+  fetchTodoList()
+})
 </script>
 
 <template>

@@ -24,6 +24,8 @@ export const useAuthStore = defineStore('authStore', () => {
         password: null,
     });
 
+    const access_token = ref<string | null>(null);
+
     const formRegistration = reactive<RegisterForm>({
         username: null,
         password: null,
@@ -31,8 +33,8 @@ export const useAuthStore = defineStore('authStore', () => {
         fullName: null,
     })
 
-    const submitLogin = () => {
-        router.push('/login');
+    const submitLogin = (value: string) => {
+        alert('hadeuhh' + value);
     }
 
     const submitRegistration = () => {
@@ -45,5 +47,6 @@ export const useAuthStore = defineStore('authStore', () => {
         formRegistration,
         submitLogin,
         submitRegistration,
+        access_token,
     }
 })

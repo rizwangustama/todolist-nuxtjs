@@ -1,17 +1,33 @@
 <script setup lang="ts">
 import { useAuthStore } from "~/stores/authStore";
+import ApiService from "~/services/apiService";
+import {useCounterStore} from "~/stores/counter";
+import {useProfileStore} from "~/stores/profileStore";
+
 
 definePageMeta({
   layout: 'default',
 });
+
+const { getApiAuth } = ApiService();
 const authStore = useAuthStore();
+const profileStore = useProfileStore();
 const router = useRouter();
-const handleLogin = () => {
-  authStore.submitLogin();
+const handleLogin = async () => {
+  try {
+    const body = {
+      username: authStore.formLogin.username,
+      password: authStore.formLogin.password,
+    }
+    await getApiAuth(body);
+  } catch (error: any) {
+    return false;
+  }
 };
 
 const handleRegister = () => {
-  router.push('/registration');
+  authStore.access_token = 'dasdasdasd';
+
 };
 </script>
 
