@@ -1,31 +1,38 @@
 <script setup lang="ts">
 
 import { reactive, h } from 'vue';
-import { PieChartOutlined } from '@ant-design/icons-vue';
+import {HomeOutlined, PieChartOutlined, SettingOutlined, UndoOutlined, UserOutlined} from '@ant-design/icons-vue';
 definePageMeta({
   layout: 'dashboard', // Specify the layout for this page
   meta: [
     { name: 'description', content: 'Dashboard page description' },
   ],
 });
+
 // Define the sidebar menu items
 const listMenu = reactive([
   {
     key: 1,
     label: "Home",
-    icon: () => h(PieChartOutlined),
+    icon: () => h(HomeOutlined),
     route: '/dashboard/',
   },
   {
     key: 2,
     label: "Todo List",
-    icon: () => h(PieChartOutlined),
+    icon: () => h(UndoOutlined),
+    route: '/dashboard/todolist',
+  },
+  {
+    key: 3,
+    label: "Users",
+    icon: () => h(UserOutlined),
     route: '/dashboard/todolist',
   },
   {
     key: 3,
     label: "Settings",
-    icon: () => h(PieChartOutlined),
+    icon: () => h(SettingOutlined),
     route: '/registration',
   },
 ]);

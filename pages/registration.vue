@@ -1,20 +1,14 @@
 <script setup lang="ts">
+import {useAuthStore} from "~/stores/authStore";
+
 definePageMeta({
   layout: 'default',
 })
-import { reactive } from "vue";
+const authStore = useAuthStore();
 
-interface UserRegister {
-  username: string,
-  password: string,
-  password_confirmation: string,
+const handleRegistration = () => {
+  authStore.submitRegistration();
 }
-
-const formRegistration = reactive<UserRegister>({
-  username: '',
-  password: '',
-  password_confirmation: '',
-});
 
 </script>
 
@@ -23,10 +17,10 @@ const formRegistration = reactive<UserRegister>({
     <a-layout>
 
     <a-card title="Registration" :style="{ width: '600px', margin: 'auto' }">
-      <a-form :model="formRegistration">
+      <a-form :model="authStore.formRegistration">
         <a-form-item label="User Name" style="{ width: 100% }" :label-col="{ span: 7 }" :wrapper-col="{ span: 17 }">
           <a-input
-              v-model:value="formRegistration.username"
+              v-model:value="authStore.formRegistration.username"
               placeholder="Enter your username"
               style="width: 100%"
           />
@@ -34,7 +28,7 @@ const formRegistration = reactive<UserRegister>({
 
         <a-form-item label="Password" style="{ width: 100% }" :label-col="{ span: 7 }" :wrapper-col="{ span: 17 }">
           <a-input
-              v-model:value="formRegistration.password"
+              v-model:value="authStore.formRegistration.password"
               placeholder="Enter your password"
               style="width: 100%"
           />
@@ -42,7 +36,7 @@ const formRegistration = reactive<UserRegister>({
 
         <a-form-item label="Password Confirmation" style="{ width: 100% }" :label-col="{ span: 7 }" :wrapper-col="{ span: 17 }">
           <a-input
-              v-model:value="formRegistration.password_confirmation"
+              v-model:value="authStore.formRegistration.currentPassword"
               placeholder="Enter your password confirmation"
               style="width: 100%"
           />

@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import {reactive, ref} from 'vue';
+import { useAuthStore } from "~/stores/authStore";
+
 definePageMeta({
   layout: 'default',
-})
-
-const formLogin = reactive<any>({
-  username: '',
-  password: ''
-})
-
+});
+const authStore = useAuthStore();
+const router = useRouter();
 const handleLogin = () => {
-  alert(`Login with username ${ formLogin.username }`);
+  authStore.submitLogin();
+};
+
+const handleRegister = () => {
+  router.push('/registration');
 };
 </script>
 
 <template>
   <div id="form-login">
   <a-card title="Login" :style="{ width: '500px', margin: 'auto' }">
-    <a-form :model="formLogin">
+    <a-form :model="authStore.formLogin">
       <a-form-item label="User Name" style="{ width: 100% }" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
         <a-input
-            v-model:value="formLogin.username"
+            v-model:value="authStore.formLogin.username"
             placeholder="Enter your username"
             style="width: 100%"
         />
@@ -29,7 +30,7 @@ const handleLogin = () => {
       <a-form-item label="Password" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
         <a-input
             type="password"
-            v-model:value="formLogin.password"
+            v-model:value="authStore.formLogin.password"
             placeholder="Enter your password"
             style="width: 100%"
         />
@@ -40,11 +41,10 @@ const handleLogin = () => {
           <a-button type="primary" @click="handleLogin" style="width: 100%">
             Login
           </a-button>
-          <a-button type="default" @click="handleLogin" style="width: 100%">
+          <a-button type="default" @click="handleRegister" style="width: 100%">
             Registration
           </a-button>
         </a-flex>
-
       </a-form-item>
     </a-form>
   </a-card>
