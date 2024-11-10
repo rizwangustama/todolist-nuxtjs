@@ -1,14 +1,17 @@
 <script setup lang="ts">
 
-import { reactive, h } from 'vue';
+import {reactive, h, onMounted} from 'vue';
 import {HomeOutlined, PieChartOutlined, SettingOutlined, UndoOutlined, UserOutlined} from '@ant-design/icons-vue';
+import {useProfileStore} from "~/stores/profileStore";
+import apiService from "~/services/apiService";
 definePageMeta({
   layout: 'dashboard', // Specify the layout for this page
   meta: [
     { name: 'description', content: 'Dashboard page description' },
   ],
 });
-
+const { getProfile } = apiService();
+const profileStore = useProfileStore();
 // Define the sidebar menu items
 const listMenu = reactive([
   {
@@ -30,13 +33,23 @@ const listMenu = reactive([
     route: '/dashboard/todolist',
   },
   {
-    key: 3,
-    label: "Settings",
-    icon: () => h(SettingOutlined),
-    route: '/registration',
+    key: 4,
+    label: "Log Out",
+    icon: () => h(UndoOutlined),
+    route: '/login',
   },
 ]);
 
+const fetchGeneralProfile = async () => {
+  const getId = localStorage.getItem('user_id');
+  const getData = await getProfile(parseInt(getId));
+  console.log(getData.fullName);
+  profileStore.setFullName(getData.fullName);
+}
+
+onMounted(async () => {
+  fetchGeneralProfile();
+})
 </script>
 
 <template>
@@ -61,7 +74,7 @@ const listMenu = reactive([
       <!-- Header -->
       <a-layout-header style="background: #fff; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0, 21, 41, 0.1)">
         <div style="font-size: 20px; font-weight: bold;">Dashboard</div>
-        <div style="padding: 0 20px;">User Name</div>
+        <div style="padding: 0 20px;">{{ profileStore.fullName }}</div>
       </a-layout-header>
 
       <!-- Content -->

@@ -6,8 +6,6 @@ const TodoListStore = useTodoListStore();
 
 const isDisabled = ref<boolean>(false);
 
-
-
 </script>
 
 <template>
@@ -34,7 +32,6 @@ const isDisabled = ref<boolean>(false);
           placeholder="Enter your Subject"
           style="width: 100%"
           v-model:value="TodoListStore.formTodoList.subject"
-          :disabled="isDisabled"
       />
     </a-form-item>
 
@@ -47,7 +44,6 @@ const isDisabled = ref<boolean>(false);
           v-model:value="TodoListStore.formTodoList.status"
           placeholder="Select Status"
           style="width: 100%"
-          :disabled="isDisabled"
       >
         <a-select-option value="Unmarked">Unmarked</a-select-option>
         <a-select-option value="Done">Done</a-select-option>
@@ -63,8 +59,7 @@ const isDisabled = ref<boolean>(false);
       <a-textarea
           placeholder="Enter your Description"
           style="width: 100%"
-          v-model:value="formTodoList.description"
-          :disabled="isDisabled"
+          v-model:value="TodoListStore.formTodoList.description"
       />
     </a-form-item>
   </a-form>

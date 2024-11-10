@@ -26,7 +26,7 @@ const handleLogin = async () => {
 };
 
 const handleRegister = () => {
-  authStore.access_token = 'dasdasdasd';
+  router.push('/registration');
 
 };
 </script>

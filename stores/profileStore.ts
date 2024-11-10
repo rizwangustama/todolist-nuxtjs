@@ -3,6 +3,7 @@ export const useProfileStore = defineStore('profileStore', {
     state: () => ({
         access_token: null,
         id_user: null,
+        fullName: null,
     }),
 
     actions: {
@@ -20,6 +21,13 @@ export const useProfileStore = defineStore('profileStore', {
             if (typeof window !== "undefined") {
                 this.id_user = id;
                 localStorage.setItem("user_id", JSON.stringify(id));
+            }
+        },
+
+        setFullName(fullName: any) {
+            if (typeof window !== "undefined") {
+                this.fullName = fullName;
+                localStorage.setItem("fullName", JSON.stringify(fullName));
             }
         }
     }
