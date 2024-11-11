@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devServer: {
     port: process.env.NUXT_PORT ? parseInt(process.env.NUXT_PORT) : 3001,
-    host: process.env.NUXT_HOST || 'localhost'
+    host: process.env.NUXT_HOST || '0.0.0.0'
   },
 
   compatibilityDate: '2024-04-03',
